@@ -28,9 +28,9 @@
         "backgroundImage": "./assets/images/app-icon-android-adaptive-background.png"
       },
       "splash": {
-        "image": "./assets/images/splash-logo-android-universal.png",
+        "image": "./assets/images/logoTuFinanciera.jpg",
         "resizeMode": "contain",
-        "backgroundColor": "#191015"
+        "backgroundColor": "#C8D746"
       }
     },
     "ios": {
@@ -38,10 +38,10 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.tufimovieapp",
       "splash": {
-        "image": "./assets/images/splash-logo-ios-mobile.png",
+        "image": "./assets/images/logoTuFinanciera.jpg",
         "tabletImage": "./assets/images/splash-logo-ios-tablet.png",
         "resizeMode": "contain",
-        "backgroundColor": "#191015"
+        "backgroundColor": "#C8D746"
       }
     },
     "web": {

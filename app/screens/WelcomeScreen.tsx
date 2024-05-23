@@ -1,40 +1,36 @@
 import { observer } from "mobx-react-lite"
 import React, { FC } from "react"
 import { Image, ImageStyle, TextStyle, View, ViewStyle } from "react-native"
-import {
-  Text,
-} from "app/components"
-import { isRTL } from "../i18n"
+import { Button, Text } from "app/components"
 import { AppStackScreenProps } from "../navigators"
 import { colors, spacing } from "../theme"
 import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
+import { ROUTES } from "app/utils/constants"
 
-const welcomeLogo = require("../../assets/images/logo.png")
-const welcomeFace = require("../../assets/images/welcome-face.png")
+const welcomeWallpaper = require("../../assets/images/wallpaperHome2.png")
 
-interface WelcomeScreenProps extends AppStackScreenProps<"Welcome"> {}
+interface WelcomeScreenProps extends AppStackScreenProps<"Welcome"> {
+}
 
-export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeScreen(
-) {
-
+export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeScreen({ navigation }) {
   const $bottomContainerInsets = useSafeAreaInsetsStyle(["bottom"])
 
   return (
     <View style={$container}>
       <View style={$topContainer}>
-        <Image style={$welcomeLogo} source={welcomeLogo} resizeMode="contain" />
-        <Text
-          testID="welcome-heading"
-          style={$welcomeHeading}
-          tx="welcomeScreen.readyForLaunch"
-          preset="heading"
-        />
-        <Text tx="welcomeScreen.exciting" preset="subheading" />
-        <Image style={$welcomeFace} source={welcomeFace} resizeMode="contain" />
+        <Image style={$welcomeWallpaper} source={welcomeWallpaper} resizeMode="cover" />
       </View>
-
       <View style={[$bottomContainer, $bottomContainerInsets]}>
-        <Text tx="welcomeScreen.postscript" size="md" />
+        <Text style={$welcomeHeading} preset="heading">
+          El mejor catálogo de peliculas online
+        </Text>
+        <Text preset="subheading">Exclusivo de TUFI streaming!</Text>
+        <Button preset={"filled"} style={{ backgroundColor: colors.palette.secondary }}
+                onPress={() => navigation.navigate("Main", { screen: ROUTES.HOME })}>
+          <Text style={{ color: colors.palette.neutral100, fontSize: 18 }}>
+            Ver Catálogo 🍿
+          </Text>
+        </Button>
       </View>
     </View>
   )
@@ -46,11 +42,8 @@ const $container: ViewStyle = {
 }
 
 const $topContainer: ViewStyle = {
-  flexShrink: 1,
-  flexGrow: 1,
-  flexBasis: "57%",
+  flex: 1,
   justifyContent: "center",
-  paddingHorizontal: spacing.lg,
 }
 
 const $bottomContainer: ViewStyle = {
@@ -61,23 +54,12 @@ const $bottomContainer: ViewStyle = {
   borderTopLeftRadius: 16,
   borderTopRightRadius: 16,
   paddingHorizontal: spacing.lg,
-  justifyContent: "space-around",
+  justifyContent: "space-evenly",
 }
-const $welcomeLogo: ImageStyle = {
-  height: 88,
+const $welcomeWallpaper: ImageStyle = {
+  height: "100%",
   width: "100%",
-  marginBottom: spacing.xxl,
 }
-
-const $welcomeFace: ImageStyle = {
-  height: 169,
-  width: 269,
-  position: "absolute",
-  bottom: -47,
-  right: -80,
-  transform: [{ scaleX: isRTL ? -1 : 1 }],
-}
-
 const $welcomeHeading: TextStyle = {
   marginBottom: spacing.md,
 }

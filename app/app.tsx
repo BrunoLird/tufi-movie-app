@@ -16,6 +16,10 @@ if (__DEV__) {
   // to only execute this in development.
   require("./devtools/ReactotronConfig.ts")
 }
+import {
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query"
 import "./i18n"
 import "./utils/ignoreWarnings"
 import { useFonts } from "expo-font"
@@ -32,6 +36,8 @@ import { GestureHandlerRootView } from "react-native-gesture-handler"
 import { ViewStyle } from "react-native"
 
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
+
+const queryClient = new QueryClient()
 
 // Web linking configuration
 const prefix = Linking.createURL("/")
@@ -98,17 +104,19 @@ function App(props: AppProps) {
 
   // otherwise, we're ready to render the app
   return (
-    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-      <ErrorBoundary catchErrors={Config.catchErrors}>
-        <GestureHandlerRootView style={$container}>
-          <AppNavigator
-            linking={linking}
-            initialState={initialNavigationState}
-            onStateChange={onNavigationStateChange}
-          />
-        </GestureHandlerRootView>
-      </ErrorBoundary>
-    </SafeAreaProvider>
+    <QueryClientProvider client={queryClient}>
+      <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+        <ErrorBoundary catchErrors={Config.catchErrors}>
+          <GestureHandlerRootView style={$container}>
+            <AppNavigator
+              linking={linking}
+              initialState={initialNavigationState}
+              onStateChange={onNavigationStateChange}
+            />
+          </GestureHandlerRootView>
+        </ErrorBoundary>
+      </SafeAreaProvider>
+    </QueryClientProvider>
   )
 }
 
